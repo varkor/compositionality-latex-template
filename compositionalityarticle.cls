@@ -363,7 +363,10 @@ class for Compositionality - the open journal for the mathematics of composition
 \let\col@number\@colnum
 
 \ltx@ifpackageloaded{ltxgrid}{
-	%repair what ltxutils has destroyed (see https://tex.stackexchange.com/questions/343856/biblatex-produces-incomplete-bcf-with-biber-backend)
+  \@ifpackagelater{ltxgrid}{2020/10/03}
+  {}% on 2020/10/03 ltxgrid 4.2e (or 4.2d?) was released, which not only fixes the bug we try to work around here but also the fix below causes an error from this version on. 
+  {
+	%repair what ltxutils has destroyed (see https://tex.stackexchange.com/questions/343856/biblatex-produces-incomplete-bcf-with-biber-backend) 
 	\patchcmd\enddocument
 	{\deadcycles}
 	{\let\AfterEndDocument\@firstofone
@@ -376,6 +379,7 @@ class for Compositionality - the open journal for the mathematics of composition
 				\let\AfterEndDocument\@firstofone
 				\@afterenddocumenthook
 				\etb@@end}}}
+  }
 }{}
 
 \setcounter{topnumber}{2}
